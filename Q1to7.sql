@@ -145,3 +145,11 @@ SELECT DISTINCT start_station_name AS 'Station',
 	WHERE start_station_id = @stationIdCheck
 GROUP BY start_station_name
 ORDER BY 'Users Under 18' DESC, 'Users Between 18 and 40' DESC, 'Users Over 40' DESC, 'Male Users' DESC, 'Female Users' DESC;
+
+SELECT  
+		c.start_station_name AS 'Name',
+		c.start_station_id AS 'Station ID',
+		z.ZIP AS 'Zip Code'
+FROM PROJ4.dbo.citi c, PROJ4.dbo.zipco z
+WHERE (ROUND(c.start_station_latitude, 2) = ROUND(z.LAT, 2) AND ROUND(c.start_station_longitude, 2) = ROUND(z.LNG, 2) )
+GROUP BY c.start_station_name, c.start_station_id, z.ZIP;
